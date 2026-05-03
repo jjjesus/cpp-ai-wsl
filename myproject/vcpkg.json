@@ -1,0 +1,12 @@
+{
+  "name": "myproject",
+  "version-string": "0.1.0",
+  "dependencies": [
+    "fmt",
+    "spdlog",
+    {
+      "name": "gtest",
+      "features": []
+    }
+  ]
+}

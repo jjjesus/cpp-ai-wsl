@@ -1,0 +1,41 @@
+digraph myproject_architecture {
+  graph [
+    rankdir = "LR",
+    bgcolor = "transparent",
+    pad = "0.2",
+    nodesep = "0.55",
+    ranksep = "0.75"
+  ];
+
+  node [
+    shape = "box",
+    style = "rounded,filled",
+    fontname = "Arial",
+    fontsize = "11",
+    color = "#425466",
+    fillcolor = "#f7f9fb",
+    margin = "0.12,0.08"
+  ];
+
+  edge [
+    fontname = "Arial",
+    fontsize = "10",
+    color = "#425466",
+    arrowsize = "0.8"
+  ];
+
+  main [label = "src/main.cpp\nexecutable"];
+  tests [label = "tests/test_widget.cpp\nGoogleTest"];
+  widget_header [label = "src/lib/widget.hpp\npublic API"];
+  widget_impl [label = "src/lib/widget.cpp\nimplementation"];
+  fmt [label = "fmt", fillcolor = "#edf7ed"];
+  spdlog [label = "spdlog", fillcolor = "#edf7ed"];
+  ctest [label = "CTest", fillcolor = "#fff7e6"];
+
+  main -> widget_header [label = "includes"];
+  tests -> widget_header [label = "includes"];
+  widget_impl -> widget_header [label = "implements"];
+  widget_impl -> fmt [label = "formats"];
+  widget_impl -> spdlog [label = "logs"];
+  ctest -> tests [label = "discovers"];
+}

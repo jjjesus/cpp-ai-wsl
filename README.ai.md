@@ -141,20 +141,20 @@ ls -la "${CODEX_HOME:-$HOME/.codex}/prompts/"
 
 ### Core workflow
 
-Inside a `codex` session, the four commands you use most:
+Inside a `codex` session, invoke OpenSpec through project Skills:
 
-| Command                       | What it does                                                     |
-|-------------------------------|------------------------------------------------------------------|
-| `/opsx:propose <change-name>` | Generate `proposal.md`, `design.md`, `tasks.md` for a new change |
-| `/opsx:apply`                 | Implement the tasks against the spec                             |
-| `/opsx:verify`                | Check that the implementation matches the spec                   |
-| `/opsx:archive`               | Merge the delta into `openspec/specs/` and clear the change      |
+| Skill                                      | What it does                                                     |
+|--------------------------------------------|------------------------------------------------------------------|
+| `$openspec-propose <change-name>`          | Generate `proposal.md`, `design.md`, `tasks.md` for a new change |
+| `$openspec-apply-change <change-name>`     | Implement the tasks against the spec                             |
+| `$openspec-archive-change <change-name>`   | Merge the delta into `openspec/specs/` and clear the change      |
+| `$openspec-explore`                        | Explore ideas and requirements without implementing              |
 
-The discipline that makes this useful: **stop after `/opsx:propose` and read the
-artifacts before letting the agent code**. That's where OpenSpec earns its keep.
+The discipline that makes this useful: **stop after `$openspec-propose` and read
+the artifacts before letting the agent code**. That's where OpenSpec earns its
+keep.
 
-If you want the expanded command set (`/opsx:new`, `/opsx:continue`, `/opsx:ff`,
-`/opsx:sync`, `/opsx:bulk-archive`, `/opsx:onboard`):
+If you want to regenerate or update the OpenSpec Skill set:
 
 ```bash
 openspec config profile      # switch profile interactively
@@ -243,7 +243,7 @@ consistent.
 
 - Read `README.toolchain.md` for build environment details.
 - Read `README.ai.md` (this file's companion) for tool setup.
-- For non-trivial changes, propose via `/opsx:propose <change-name>` rather than
+- For non-trivial changes, propose via `$openspec-propose <change-name>` rather than
   editing directly.
 ```
 
@@ -586,19 +586,19 @@ A typical session for a non-trivial change:
 $ cd ~/code/myproject
 $ codex
 
-> /opsx:propose add-rate-limiting
+> $openspec-propose add-rate-limiting
   [Codex generates openspec/changes/add-rate-limiting/{proposal,design,tasks}.md]
 
 # You read the artifacts, edit them directly, refine.
 
-> /opsx:apply
+> $openspec-apply-change add-rate-limiting
   [Codex implements task by task, invoking cmake-build, cmake-test,
    clang-format-fix, and clang-tidy-check skills as it goes]
 
-> /opsx:verify
+> Verify the implementation against the OpenSpec change.
   [Codex checks the implementation against the spec]
 
-> /opsx:archive
+> $openspec-archive-change add-rate-limiting
   [Delta merged into openspec/specs/, change directory cleared]
 ```
 
